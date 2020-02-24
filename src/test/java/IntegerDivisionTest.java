@@ -21,12 +21,7 @@ public class IntegerDivisionTest {
             "    _25\n" +
             "     24\n" +
             "     --\n" +
-            "       1";
-
-    private static final String expectedDividentLessThenDivider = "_125|365\n" +
-            " 0    |------\n" +
-            " --   |0\n" +
-            " 1\n";
+            "     1";
 
     @Test
     public void standartTest() {

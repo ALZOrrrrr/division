@@ -1,9 +1,11 @@
 package gitlab.foxminded.task4;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class IntegerDivision {
     private static final DivisionFormating format = new DivisionFormating();
+    private static final MyNumsList myNumsList = new MyNumsList();
 
     private static int validate(Integer divident, Integer divider) {
         if (divider == null || divident == null) {
@@ -14,8 +16,7 @@ public class IntegerDivision {
             throw new UnsupportedOperationException("negative values are not supported");
         } else if (divident < divider) {
             return 0;
-        }
-        else {
+        } else {
             return 0;
         }
     }
@@ -33,7 +34,7 @@ public class IntegerDivision {
         return String.valueOf(Math.abs(number)).length();
     }
 
-    public static List<Integer> digitsInNumber(int number) {
+    private static List<Integer> digitsInNumber(int number) {
         String n = Integer.toString(number);
         char[] charArray = n.toCharArray();
         ArrayList<Integer> cia = new ArrayList<>();
@@ -44,11 +45,10 @@ public class IntegerDivision {
         return cia;
     }
 
-    private static String calculate(int minuend, int divider, int resultNumberCoef, int dividentNumCoef, List<Integer> resultNums, List<Integer> dividentNums) {
+    private static void calculate(int minuend, int divider, int resultNumberCoef, int dividentNumCoef, List<Integer> resultNums, List<Integer> dividentNums) {
 
-        StringBuilder result = new StringBuilder();
-
-        result.append(format.addSecondPart(minuend, divider, resultNumberCoef, resultNums));
+        myNumsList.add(minuend);
+        myNumsList.add(resultNums.get(resultNumberCoef) * divider);
 
         resultNumberCoef++;
         if (resultNumberCoef < resultNums.size()) {
@@ -61,11 +61,10 @@ public class IntegerDivision {
                 }
             }
             dividentNumCoef++;
-            result.append(calculate(minuend, divider, resultNumberCoef, dividentNumCoef, resultNums, dividentNums));
+            calculate(minuend, divider, resultNumberCoef, dividentNumCoef, resultNums, dividentNums);
         } else {
-            result.append(format.addResidue(minuend, divider, resultNumberCoef, resultNums));
+            myNumsList.add(minuend - resultNums.get(resultNumberCoef - 1) * divider);
         }
-        return result.toString();
     }
 
     public String division(Integer divident, Integer divider) {
@@ -75,10 +74,14 @@ public class IntegerDivision {
         StringBuilder mystring = new StringBuilder();
         final int result = divident / divider;
 
+
         List<Integer> dividentNums = digitsInNumber(divident);
         List<Integer> resultNums = digitsInNumber(result);
 
-        mystring.append(format.addFirstPart(divident, divider, resultNums, dividentNums));
+        myNumsList.add(divident);
+        myNumsList.add(divider);
+        myNumsList.add(resultNums.get(0) * divider);
+        myNumsList.add(result);
 
         int minuendDivident = dividentNums.get(0);
         int dividentNumberCoef = 1;
@@ -98,7 +101,8 @@ public class IntegerDivision {
                 minuendDivident = add(minuendDivident, dividentNums.get(dividentNumberCoef));
                 dividentNumberCoef++;
             }
-            mystring.append(calculate(minuendDivident, divider, 1, dividentNumberCoef, resultNums, dividentNums));
+            calculate(minuendDivident, divider, 1, dividentNumberCoef, resultNums, dividentNums);
+            mystring.append(format.format(myNumsList));
             return mystring.toString();
         }
     }

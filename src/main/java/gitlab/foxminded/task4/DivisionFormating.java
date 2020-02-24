@@ -1,5 +1,4 @@
 package gitlab.foxminded.task4;
-import java.util.List;
 
 public class DivisionFormating {
 
@@ -15,46 +14,31 @@ public class DivisionFormating {
         return String.valueOf(Math.abs(number)).length();
     }
 
-    String addFirstPart(int divident, int divider, List<Integer> resultNums, List<Integer> dividentNums) {
+    protected String format(MyNumsList myList) {
+        int spaceIndex = 1;
+        StringBuilder myString = new StringBuilder();
+        myString.append("_" + myList.get(0) + "|" + myList.get(1) + "\n" + " " + myList.get(2));
+        addSpaces(myString, getCountsOfDigits(myList.get(0)) - getCountsOfDigits(myList.get(2)));
+        myString.append("|------" + "\n" + SPACE + "--");
+        addSpaces(myString, getCountsOfDigits(myList.get(0)) - 2);
+        myString.append("|" + myList.get(3) + "\n");
 
-        final int result = divident / divider;
+        for (int i = 4; i < myList.size() - 1; i++) {
+
+            addSpaces(myString, spaceIndex);
+            myString.append("_" + myList.get(i) + "\n");
+            addSpaces(myString, spaceIndex + 1);
+            myString.append(myList.get(i + 1) + "\n");
+            addSpaces(myString, spaceIndex + 1);
+            myString.append("--" + "\n");
+            spaceIndex++;
+            i++;
+        }
+        addSpaces(myString, spaceIndex);
+        myString.append(myList.get(myList.size() - 1));
 
 
-        StringBuilder mystring = new StringBuilder();
-
-        mystring.append("_" + divident + "|" + divider + "\n" + " " + resultNums.get(0) * divider);
-
-        addSpaces(mystring, dividentNums.size() - getCountsOfDigits(divider * resultNums.get(0)));
-
-        mystring.append("|------" + "\n" + SPACE + "--");
-
-        addSpaces(mystring, dividentNums.size() - 2);
-
-        mystring.append("|" + result + "\n");
-
-
-        return mystring.toString();
-    }
-
-    String addSecondPart(int minuend, int divider, int resultNumberCoef, List<Integer> resultNums) {
-
-        StringBuilder result = new StringBuilder();
-        addSpaces(result, resultNumberCoef);
-        result.append("_" + minuend + "\n");
-        addSpaces(result, resultNumberCoef + 1);
-        result.append(resultNums.get(resultNumberCoef) * divider + "\n");
-        addSpaces(result, resultNumberCoef + 1);
-        result.append("--" + "\n");
-
-        return result.toString();
-    }
-
-    String addResidue(int minuend, int divider, int resultNumberCoef, List<Integer> resultNums) {
-
-        StringBuilder result = new StringBuilder();
-        addSpaces(result, resultNumberCoef + 1);
-        result.append(minuend - resultNums.get(resultNumberCoef - 1) * divider);
-        return result.toString();
+        return myString.toString();
     }
 }
 
