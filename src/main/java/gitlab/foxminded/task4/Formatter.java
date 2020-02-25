@@ -2,7 +2,7 @@ package gitlab.foxminded.task4;
 
 import java.util.List;
 
-public class DivisionFormating {
+public class Formatter {
 
     private final String SPACE = " ";
 
