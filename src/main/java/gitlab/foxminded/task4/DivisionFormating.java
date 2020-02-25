@@ -1,8 +1,10 @@
 package gitlab.foxminded.task4;
 
+import java.util.List;
+
 public class DivisionFormating {
 
-    private static final String SPACE = " ";
+    private final String SPACE = " ";
 
     protected void addSpaces(StringBuilder string, int amount) {
         for (int i = 0; i < amount; i++) {
@@ -14,7 +16,7 @@ public class DivisionFormating {
         return String.valueOf(Math.abs(number)).length();
     }
 
-    protected String format(MyNumsList myList) {
+    protected String format(List<Integer> myList) {
         int spaceIndex = 1;
         StringBuilder myString = new StringBuilder();
         myString.append("_" + myList.get(0) + "|" + myList.get(1) + "\n" + " " + myList.get(2));

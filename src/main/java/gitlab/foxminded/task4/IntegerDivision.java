@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IntegerDivision {
-    private static final DivisionFormating format = new DivisionFormating();
-    private static final MyNumsList myNumsList = new MyNumsList();
+    private final DivisionFormating format = new DivisionFormating();
+    private final List<Integer> myNumsList = new ArrayList<>();
 
     private static int validate(Integer divident, Integer divider) {
         if (divider == null || divident == null) {
@@ -21,7 +21,7 @@ public class IntegerDivision {
         }
     }
 
-    private static int add(int a, int b) {
+    private int add(int a, int b) {
         if (a == 0) {
             return b;
         }
@@ -34,7 +34,7 @@ public class IntegerDivision {
         return String.valueOf(Math.abs(number)).length();
     }
 
-    private static List<Integer> digitsInNumber(int number) {
+    private List<Integer> digitsInNumber(int number) {
         String n = Integer.toString(number);
         char[] charArray = n.toCharArray();
         ArrayList<Integer> cia = new ArrayList<>();
@@ -45,7 +45,7 @@ public class IntegerDivision {
         return cia;
     }
 
-    private static void calculate(int minuend, int divider, int resultNumberCoef, int dividentNumCoef, List<Integer> resultNums, List<Integer> dividentNums) {
+    private void calculate(int minuend, int divider, int resultNumberCoef, int dividentNumCoef, List<Integer> resultNums, List<Integer> dividentNums) {
 
         myNumsList.add(minuend);
         myNumsList.add(resultNums.get(resultNumberCoef) * divider);

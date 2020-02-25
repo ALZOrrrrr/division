@@ -4,9 +4,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class IntegerDivisionTest {
-    public static final IntegerDivision division = new IntegerDivision();
-    private static String actual;
-    private static final String expectedStandart = "_78945|4\n" +
+    public final IntegerDivision division = new IntegerDivision();
+    private String actual;
+    private final String expectedStandart = "_78945|4\n" +
             " 4    |------\n" +
             " --   |19736\n" +
             " _38\n" +
